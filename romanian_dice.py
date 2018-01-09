@@ -1,22 +1,37 @@
 # Classes to import
 import random
-
-
-
+from player import Player
+from die import Die
 
 # Main file for romainian dice
 pocketMoney = 100
 bet = 0
 continueGame = True
+current_player = Player()
 
+def gatherPlayerInfo():
+	print("\nFirst we need some information about you...")
+	try:
+		startingCash = int(input("How much money do you have in your pocket?"))
+		
+	except ValueError:
+		print("That can't be in your pocket")
+		gatherPlayerInfo()
+		
+	name = input("Now we just need to know your name: ")
+	
+	current_player = Player(name, startingCash)
+	
+	print("Welcome, " + current_player.name + "\nYou have $" + str(current_player.starting_cash))
+		
 
 def checkUserInput():
-	userAnswer = input("\nDo you know the rules? (y/n)")
+	userAnswer = input("\n" + current_player.name.title() + " Do you know the rules? (y/n)")
 
-	if userAnswer.lower() == 'y':
+	if userAnswer.lower() == 'y' or userAnswer.lower() == 'yes':
 		startGame()
 	
-	elif userAnswer.lower() == 'n':
+	elif userAnswer.lower() == 'n'  or userAnswer.lower() == 'no':
 		print("Lets go over the rules!")
 		showGameRules() 
 
@@ -33,18 +48,16 @@ def showGameRules():
 def startGame():
 	#maybe play that push it to the limit song at the start
 	
-	print("")
-	print("Let's start the game!")
+	print("\nLet's start the game!")
 	
 	
 	
 	
 def takeBet():
-	global pocketMoney
 	global bet
 	
 	try: 
-		print("\nCurrent money in your pocket $" + str(pocketMoney))
+		print("\nCurrent money in your pocket $" + str(current_player.starting_cash))
 	
 		bet = int(input("\nHow much would you like to bet?"))
 	
@@ -52,14 +65,14 @@ def takeBet():
 			print("\nYou can't bet less than zero!")
 			takeBet()
 	
-		elif bet > pocketMoney:
+		elif bet > current_player.starting_cash:
 			print("\nYou can't bet more than what you have!")
 			takeBet()
 		
-		elif bet > 0 and int(bet) <= pocketMoney:
+		elif bet > 0 and int(bet) <= current_player.starting_cash:
 			print("You have bet $" +  str(bet))
-			pocketMoney -= bet
-			print("\nRemaining money $" + str(pocketMoney))
+			current_player.starting_cash -= bet
+			print("\nRemaining money $" + str(current_player.starting_cash))
 		
 		else: 
 			print("\nNot sure what you wanted")
@@ -92,43 +105,47 @@ def userBet(selection):
 	global bet
 	global pocketMoney
 	
-	die1 = random.randint(1,6)
-	print("\nThe die rolled is: " + str(die1))
+	result = die_1.roll()
+	print("\nThe die rolled is: " + str(result))
 	
 	if selection == 1:
-		if die1 % 2 != 0:
+		if result % 2 != 0:
 			print("You won!")
 			winnings = (bet*2)
-			pocketMoney += winnings 
+			current_player.starting_cash += winnings 
 			
 		else:
 			print("Sorry you lose your bet")
 			
 			
 	elif selection == 2:
-		if die1 % 2 == 0:
+		if result % 2 == 0:
 			print("You won!")
 			winnings = (bet*2)
-			pocketMoney += winnings 
+			current_player.starting_cash += winnings 
 			
 		else:
 			print("Sorry you lose your bet")		
 			
-
+###############################################################################
 # Start of the game 
-
+###############################################################################
 startUpMessage = "Welcome to romanian dice game!"
 startUpMessage += "\nThe safe and fun romanian dice game simulator"
 
 print(startUpMessage)
+
+gatherPlayerInfo()
 checkUserInput()
+
+die_1 = Die()
 
 while continueGame:
 	takeBet()
 	checkUserBets()
 	
-	if pocketMoney <= 0:
+	if current_player.starting_cash <= 0:
 		continueGame = False
 		
-if continueGame = False:
-	print("\n Looks like you lost all your money! Sucks!")
+	if continueGame == False:
+		print("\n Looks like you lost all your money! Sucks!")
