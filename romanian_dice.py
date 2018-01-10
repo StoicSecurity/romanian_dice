@@ -4,7 +4,6 @@ from player import Player
 from die import Die
 
 # Main file for romainian dice
-pocketMoney = 100
 bet = 0
 continueGame = True
 current_player = Player()
@@ -13,6 +12,7 @@ def gatherPlayerInfo():
 	print("\nFirst we need some information about you...")
 	try:
 		startingCash = int(input("How much money do you have in your pocket?"))
+		current_player.setStartingCash(startingCash)
 		
 	except ValueError:
 		print("That can't be in your pocket")
@@ -20,13 +20,15 @@ def gatherPlayerInfo():
 		
 	name = input("Now we just need to know your name: ")
 	
-	current_player = Player(name, startingCash)
+	current_player.setName(name)
 	
-	print("Welcome, " + current_player.name + "\nYou have $" + str(current_player.starting_cash))
+	print("Welcome, " + current_player.name + "\nYou have $" + 
+	str(current_player.starting_cash))
 		
 
 def checkUserInput():
-	userAnswer = input("\n" + current_player.name.title() + " Do you know the rules? (y/n)")
+	userAnswer = input("\n" + current_player.name.title() + 
+	" Do you know the rules? (y/n)")
 
 	if userAnswer.lower() == 'y' or userAnswer.lower() == 'yes':
 		startGame()
@@ -54,24 +56,26 @@ def startGame():
 	
 	
 def takeBet():
-	global bet
+	# global bet
 	
 	try: 
 		print("\nCurrent money in your pocket $" + str(current_player.starting_cash))
 	
-		bet = int(input("\nHow much would you like to bet?"))
-	
-		if bet <= 0:
+		currentBet = int(input("\nHow much would you like to bet?"))
+		
+		current_player.setBet(currentBet)
+		
+		if current_player.bet <= 0:
 			print("\nYou can't bet less than zero!")
 			takeBet()
 	
-		elif bet > current_player.starting_cash:
+		elif current_player.bet > current_player.starting_cash:
 			print("\nYou can't bet more than what you have!")
 			takeBet()
 		
-		elif bet > 0 and int(bet) <= current_player.starting_cash:
-			print("You have bet $" +  str(bet))
-			current_player.starting_cash -= bet
+		elif current_player.bet > 0 and int(current_player.bet) <= current_player.starting_cash:
+			print("You have bet $" +  str(current_player.bet))
+			current_player.starting_cash -= current_player.bet
 			print("\nRemaining money $" + str(current_player.starting_cash))
 		
 		else: 
@@ -111,7 +115,7 @@ def userBet(selection):
 	if selection == 1:
 		if result % 2 != 0:
 			print("You won!")
-			winnings = (bet*2)
+			winnings = (current_player.bet*2)
 			current_player.starting_cash += winnings 
 			
 		else:
@@ -121,7 +125,7 @@ def userBet(selection):
 	elif selection == 2:
 		if result % 2 == 0:
 			print("You won!")
-			winnings = (bet*2)
+			winnings = (current_player.bet*2)
 			current_player.starting_cash += winnings 
 			
 		else:
