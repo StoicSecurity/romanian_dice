@@ -9,14 +9,14 @@ class Player():
 		self.starting_cash = 0
 		self.bet = 0
 		
-	def setName(self, name):
-		"""sets the player name"""
-		self.name = name
+	#def setName(self, name):
+	#	"""sets the player name"""
+	#	self.name = name
 	
-	def setStartingCash(self, cash):
-		"""sets the player starting cash"""
-		self.starting_cash = cash
+	#def setStartingCash(self, cash):
+	#	"""sets the player starting cash"""
+	#	self.starting_cash = cash
 		
-	def setBet(self, bet):
-		"""sets the players bet"""
-		self.bet = bet
+	#def setBet(self, bet):
+	#	"""sets the players bet"""
+	#	self.bet = bet

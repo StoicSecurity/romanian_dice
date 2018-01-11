@@ -11,16 +11,14 @@ current_player = Player()
 def gatherPlayerInfo():
 	print("\nFirst we need some information about you...")
 	try:
-		startingCash = int(input("How much money do you have in your pocket?"))
-		current_player.setStartingCash(startingCash)
+		current_player.starting_cash = int(input("How much money do you have in your pocket?"))
+		
 		
 	except ValueError:
 		print("That can't be in your pocket")
 		gatherPlayerInfo()
 		
-	name = input("Now we just need to know your name: ")
-	
-	current_player.setName(name)
+	current_player.namename = input("Now we just need to know your name: ")
 	
 	print("Welcome, " + current_player.name + "\nYou have $" + 
 	str(current_player.starting_cash))
@@ -61,9 +59,8 @@ def takeBet():
 	try: 
 		print("\nCurrent money in your pocket $" + str(current_player.starting_cash))
 	
-		currentBet = int(input("\nHow much would you like to bet?"))
+		current_player.bet = int(input("\nHow much would you like to bet?"))
 		
-		current_player.setBet(currentBet)
 		
 		if current_player.bet <= 0:
 			print("\nYou can't bet less than zero!")
