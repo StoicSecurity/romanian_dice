@@ -1,12 +1,17 @@
 # Classes to import
 import random
+import pygame as pg
+
+import sys
+
 from player import Player
 from die import Die
+from settings import Settings
 
 # Main file for romainian dice
-bet = 0
 continueGame = True
 current_player = Player()
+
 
 def gatherPlayerInfo():
 	print("\nFirst we need some information about you...")
@@ -112,7 +117,7 @@ def userBet(selection):
 	if selection == 1:
 		if result % 2 != 0:
 			print("You won!")
-			winnings = (current_player.bet*2)
+			winnings = (current_player.bet*1.5)
 			current_player.starting_cash += winnings 
 			
 		else:
@@ -122,7 +127,7 @@ def userBet(selection):
 	elif selection == 2:
 		if result % 2 == 0:
 			print("You won!")
-			winnings = (current_player.bet*2)
+			winnings = (current_player.bet*1.5)
 			current_player.starting_cash += winnings 
 			
 		else:
@@ -131,22 +136,50 @@ def userBet(selection):
 ###############################################################################
 # Start of the game 
 ###############################################################################
+rd_settings = Settings()
+
 startUpMessage = "Welcome to romanian dice game!"
 startUpMessage += "\nThe safe and fun romanian dice game simulator"
 
 print(startUpMessage)
 
-gatherPlayerInfo()
-checkUserInput()
+pg.init()
+pg.font.init()
+
+clock = pg.time.Clock()
+
+screen = pg.display.set_mode((rd_settings.scrWidth, rd_settings.scrHeight))
+pg.display.set_caption("Romanian Dice Simulator")
+
+image = pg.image.load('images/putin_8bit_final.png').convert()
+
+
+myfont = pg.font.SysFont('Comic Sans MS', 64)
+
+textsurface = myfont.render('TEST TEXT', False, (0, 0, 0))
+#gatherPlayerInfo()
+#checkUserInput()
 
 die_1 = Die()
 
+
+
 while continueGame:
-	takeBet()
-	checkUserBets()
+	for event in pg.event.get():
+		if event.type == pg.QUIT:
+			sys.exit()
+	screen.fill(rd_settings.bg_color)
+	screen.blit(image, (700,300))
+	screen.blit(textsurface,(0,0))
 	
-	if current_player.starting_cash <= 0:
-		continueGame = False
+	#takeBet()
+	#checkUserBets()
+	
+	#if current_player.starting_cash <= 0:
+	#	continueGame = False
 		
-	if continueGame == False:
-		print("\n Looks like you lost all your money! Sucks!")
+	#if continueGame == False:
+	#	print("\n Looks like you lost all your money! Sucks!")
+	
+	pg.display.flip()
+	clock.tick(rd_settings.FPS)
