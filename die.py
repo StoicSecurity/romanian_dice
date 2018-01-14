@@ -11,5 +11,4 @@ class Die():
 		
 	def roll(self):
 		""" Return a random number value between 1 and the number of sides. """
-		
 		return randint(1, self.num_sides)

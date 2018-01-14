@@ -8,7 +8,7 @@ class Settings():
 		self.starting_cash = 100
 		self.scrHeight = 768
 		self.scrWidth = 1366
-		self.bg_color = (255,255,255)
+		self.bg_color = (210,210,210)
 		self.FPS = 60
 		
 		
