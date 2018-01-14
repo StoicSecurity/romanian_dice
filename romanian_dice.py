@@ -154,9 +154,16 @@ pg.display.set_caption("Romanian Dice Simulator")
 image = pg.image.load('images/putin_8bit_final.png').convert()
 
 
-myfont = pg.font.SysFont('Comic Sans MS', 64)
+myfont = pg.font.Font('images/8bit.ttf', 64)
 
 textsurface = myfont.render('TEST TEXT', False, (0, 0, 0))
+
+
+textsurfaceTEST = myfont.render('ABCDEFGHIJKLMNOPQRSTUVWXYZ', False, (0, 0, 0))
+
+textsurfaceTEST2 = myfont.render('abcdefghijklmnopqrstuvwxyz', False, (0, 0, 0))
+
+
 #gatherPlayerInfo()
 #checkUserInput()
 
@@ -171,7 +178,8 @@ while continueGame:
 	screen.fill(rd_settings.bg_color)
 	screen.blit(image, (700,300))
 	screen.blit(textsurface,(0,0))
-	
+	screen.blit(textsurfaceTEST,(0,124))
+	screen.blit(textsurfaceTEST2,(0,248))
 	#takeBet()
 	#checkUserBets()
 	
