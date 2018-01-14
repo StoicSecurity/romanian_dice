@@ -8,6 +8,8 @@ from player import Player
 from die import Die
 from settings import Settings
 
+import rd_game_functions as gf
+
 # Main file for romainian dice
 continueGame = True
 current_player = Player()
@@ -59,7 +61,6 @@ def startGame():
 	
 	
 def takeBet():
-	# global bet
 	
 	try: 
 		print("\nCurrent money in your pocket $" + str(current_player.starting_cash))
@@ -90,9 +91,6 @@ def takeBet():
 
 def checkUserBets():
 	""" gives a selection of bets to make"""
-	global pocketMoney
-	global bet
-	
 	betsToMake = "\nSelect an Option, enter a number"
 	betsToMake += "\n1.) Odds"
 	betsToMake += "\n2.) Evans"
@@ -108,8 +106,6 @@ def checkUserBets():
 		checkUserBets()
 
 def userBet(selection):
-	global bet
-	global pocketMoney
 	
 	result = die_1.roll()
 	print("\nThe die rolled is: " + str(result))
@@ -163,31 +159,25 @@ textsurfaceTEST = myfont.render('ABCDEFGHIJKLMNOPQRSTUVWXYZ', False, (0, 0, 0))
 
 textsurfaceTEST2 = myfont.render('abcdefghijklmnopqrstuvwxyz', False, (0, 0, 0))
 
-
-#gatherPlayerInfo()
-#checkUserInput()
-
 die_1 = Die()
 
-
+###############################################################################
+# Main Game Loop
+###############################################################################
 
 while continueGame:
+	
+	
 	for event in pg.event.get():
 		if event.type == pg.QUIT:
 			sys.exit()
+			
 	screen.fill(rd_settings.bg_color)
 	screen.blit(image, (700,300))
 	screen.blit(textsurface,(0,0))
 	screen.blit(textsurfaceTEST,(0,124))
 	screen.blit(textsurfaceTEST2,(0,248))
-	#takeBet()
-	#checkUserBets()
-	
-	#if current_player.starting_cash <= 0:
-	#	continueGame = False
-		
-	#if continueGame == False:
-	#	print("\n Looks like you lost all your money! Sucks!")
 	
 	pg.display.flip()
+	
 	clock.tick(rd_settings.FPS)
