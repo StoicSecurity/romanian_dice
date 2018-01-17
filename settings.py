@@ -11,5 +11,6 @@ class Settings():
 		self.bg_color = (210,210,210)
 		self.FPS = 60
 		self.start_clicked = False
+		self.playerKnowsGame = False
 		
 		

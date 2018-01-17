@@ -40,16 +40,32 @@ def introPutin(screen, putin, blankDie, eightBit, rd_settings):
 			rd_settings.start_clicked = True
 		
 		screen.blit(startText,(455,455))	
-			
+	
+def doesPlayerKnowGame(screen,rd_settings, chatBit):		
+	chatBitPlay = chatBit.render('Do you know how to play? (y/n)', False, (0, 0, 0))
+	screen.blit(chatBitPlay, (35,560))
+	
+	if rd_settings.playerKnowsGame == True:
+		chatBitPlay2 = chatBit.render('Great', False, (0, 0, 0))
+		screen.blit(chatBitPlay2, (35,560))
+	
 				
 def checkForEvents(rd_settings, screen, start_button):
 	for event in pg.event.get():
 		if event.type == pg.QUIT:
 			sys.exit()
+		
+		elif event.type == pg.KEYDOWN:
+			check_keydown_events(event, rd_settings, screen)
+		
 		elif event.type == pg.MOUSEBUTTONDOWN:
 			mouseX, mouseY = pg.mouse.get_pos()
 			check_start_button(rd_settings, screen, start_button, mouseX, mouseY)
-			
+
+def check_keydown_events(event, rd_settings, screen):
+	if event.key == pg.K_y:
+		#move the player to the right by one pixel
+		rd_settings.playerKnowsGame = True
 
 def check_start_button(rd_settings, screen, start_button, mouseX, mouseY):
 	button_clicked = start_button.rect.collidepoint(mouseX, mouseY)

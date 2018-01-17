@@ -6,5 +6,5 @@ class Player():
 	def __init__(self):
 		"""A player class for holding basic player information"""
 		self.name = ""
-		self.starting_cash = 0
+		self.starting_cash = 100
 		self.bet = 0
