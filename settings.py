@@ -10,5 +10,6 @@ class Settings():
 		self.scrWidth = 1366
 		self.bg_color = (210,210,210)
 		self.FPS = 60
+		self.start_clicked = False
 		
 		

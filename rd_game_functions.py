@@ -8,35 +8,60 @@ def bootUpScreen():
 	"""Does stuff"""
 	x=3
 
-def introPutin(screen, putin, blankDie, eightBit):
-	
+def introPutin(screen, putin, blankDie, eightBit, rd_settings):
+	startClicked = False
 	mouseX, mouseY = pg.mouse.get_pos()
 	
-	blankDie2 = blankDie
-	titleText = eightBit.render('Romanian Dice Simulator', False, (0, 0, 0))
-	startText = eightBit.render('Start', False, (0, 0, 0))
-	screen.blit(putin, (750,175))
+	if startClicked == False:
+		blankDie2 = blankDie
+		titleText = eightBit.render('Romanian Dice Simulator', False, (0, 0, 0))
+		startText = eightBit.render('Start', False, (0, 0, 0))
+		screen.blit(putin, (750,175))
 	
-	#First static die
-	screen.blit(blankDie, (50,200))
-	blankDieRect = blankDie.get_rect()
-	dieX = blankDieRect.centerx
-	dieY = blankDieRect.centery
-	pg.draw.circle(blankDie, (0,0,0),(dieX,dieY),15, 0)
+		#First static die
+		screen.blit(blankDie, (50,200))
+		blankDieRect = blankDie.get_rect()
+		dieX = blankDieRect.centerx
+		dieY = blankDieRect.centery
+		pg.draw.circle(blankDie, (0,0,0),(dieX,dieY),15, 0)
 	
-	## Second Static Die
-	screen.blit(blankDie2, (150,275))
+		## Second Static Die
+		screen.blit(blankDie2, (150,275))
 	
-	pg.draw.rect(screen, (0,225,0), (450,450,300,100), 0)
-	
-	screen.blit(titleText,(0,0))
-	if (mouseX > 450 and mouseX < 850) and (mouseY > 450 and mouseY < 550):
+		pg.draw.rect(screen, (0,225,0), (450,450,300,100), 0)
 		
-		#draw green start box
-		pg.draw.rect(screen, (0,255,0), (450,450,300,100), 0)
 		
-	screen.blit(startText,(455,455))
+		screen.blit(titleText,(0,0))
+		
+		if (mouseX > 450 and mouseX < 850) and (mouseY > 450 and mouseY < 550):
+			
+			#draw green start box
+			pg.draw.rect(screen, (0,255,0), (450,450,300,100), 0)
+			rd_settings.start_clicked = True
+		
+		screen.blit(startText,(455,455))	
+			
+				
+def checkForEvents(rd_settings, screen, start_button):
+	for event in pg.event.get():
+		if event.type == pg.QUIT:
+			sys.exit()
+		elif event.type == pg.MOUSEBUTTONDOWN:
+			mouseX, mouseY = pg.mouse.get_pos()
+			check_start_button(rd_settings, screen, start_button, mouseX, mouseY)
+			
+
+def check_start_button(rd_settings, screen, start_button, mouseX, mouseY):
+	button_clicked = start_button.rect.collidepoint(mouseX, mouseY)
 	
+	
+	if button_clicked and not rd_settings.start_clicked:
+		#### YOU STOPPED HERE LOOK AT THE UPDATESCREEN ###
+		x = 2
+	
+			
+	
+		
 ###################################################
 ## Old Functions saving to see if can salvage    ##
 ###################################################
